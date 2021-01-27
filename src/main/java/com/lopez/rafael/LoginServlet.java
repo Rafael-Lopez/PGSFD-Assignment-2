@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.lopez.rafael.util.HibernateUtil;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -22,6 +27,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+        //retrieve a hibenate session       
+        Session session = factory.openSession();
+        System.out.println("Testing Hibernate Session");
+        
+        //Flush and Close Session
+        session.close();
+		
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
         RequestDispatcher rd = null;
@@ -30,8 +45,7 @@ public class LoginServlet extends HttpServlet {
         	rd = request.getRequestDispatcher("dashboard");
         	rd.forward(request, response);
         } else {
-        	rd = request.getRequestDispatcher("index.html");
-        	PrintWriter out = response.getWriter();
+        	rd = request.getRequestDispatcher("index.html");	
         	out.println("<center><span style = 'color: red'>Invalid Credentials!</span></center>");
         	rd.include(request, response);
         }

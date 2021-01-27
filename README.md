@@ -17,5 +17,5 @@ Technologies used for this project:
 - Java
 - Java EE (Servlets)
 - HTML
-- MySQL
+- MySQL (Amazon RDS - MySQL)
 - Hibernate
