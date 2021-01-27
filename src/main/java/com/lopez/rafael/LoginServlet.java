@@ -2,7 +2,10 @@ package com.lopez.rafael;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.lopez.rafael.model.SystemUser;
 import com.lopez.rafael.util.HibernateUtil;
 
 /**
@@ -19,9 +23,6 @@ import com.lopez.rafael.util.HibernateUtil;
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//These values should come from the DB
-	private static final String USERNAME = "test";
-	private static final String PASSWORD = "test";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +33,16 @@ public class LoginServlet extends HttpServlet {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
         //retrieve a hibenate session       
         Session session = factory.openSession();
-        System.out.println("Testing Hibernate Session");
+
+        session.beginTransaction();
+        
+        // retrieve the user
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<SystemUser> criteria = builder.createQuery(SystemUser.class);
+        criteria.from(SystemUser.class);
+        List<SystemUser> systemUserList = session.createQuery(criteria).getResultList();
+        
+        session.getTransaction().commit();
         
         //Flush and Close Session
         session.close();
@@ -41,14 +51,17 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         RequestDispatcher rd = null;
         
-        if (username != null && username.contentEquals(USERNAME) && password != null && password.contentEquals(PASSWORD)) {
-        	rd = request.getRequestDispatcher("dashboard");
-        	rd.forward(request, response);
-        } else {
-        	rd = request.getRequestDispatcher("index.html");	
-        	out.println("<center><span style = 'color: red'>Invalid Credentials!</span></center>");
-        	rd.include(request, response);
+        for (SystemUser user : systemUserList) {
+        	if (username != null && username.contentEquals(user.getUsername()) && 
+        		password != null && password.contentEquals(user.getPassword())) {
+            	rd = request.getRequestDispatcher("dashboard");
+            	rd.forward(request, response);
+            }
         }
+        
+    	rd = request.getRequestDispatcher("index.html");	
+    	out.println("<center><span style = 'color: red'>Invalid Credentials!</span></center>");
+    	rd.include(request, response);
 	}
 
 	/**

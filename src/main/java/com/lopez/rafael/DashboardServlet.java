@@ -23,7 +23,7 @@ public class DashboardServlet extends HttpServlet {
 		
 		out.println("<h2>My Dashboard</h2>");
 		out.println("<h3>Welcome " + username + "!</h3>");
-		out.println("<a href='/assignment1'>Logout</a>");
+		out.println("<a href='/PGFSD-Assignment-2'>Logout</a>");
 	}
 
 	/**
