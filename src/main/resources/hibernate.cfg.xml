@@ -13,5 +13,6 @@
   		<mapping class="com.lopez.rafael.model.SystemUser"/>
   		<mapping class="com.lopez.rafael.model.Subject"/>
   		<mapping class="com.lopez.rafael.model.Class"/>
+  		<mapping class="com.lopez.rafael.model.Teacher"/>
     </session-factory>
 </hibernate-configuration>
