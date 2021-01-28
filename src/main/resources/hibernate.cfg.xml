@@ -12,5 +12,6 @@
   		<property name="hibernate.show_sql">true</property>
   		<mapping class="com.lopez.rafael.model.SystemUser"/>
   		<mapping class="com.lopez.rafael.model.Subject"/>
+  		<mapping class="com.lopez.rafael.model.Class"/>
     </session-factory>
 </hibernate-configuration>
