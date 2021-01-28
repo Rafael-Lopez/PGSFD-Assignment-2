@@ -1,4 +1,4 @@
-package com.lopez.rafael;
+package com.lopez.rafael.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,12 +31,10 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		SessionFactory factory = HibernateUtil.getSessionFactory();
-        //retrieve a hibenate session       
         Session session = factory.openSession();
 
         session.beginTransaction();
         
-        // retrieve the user
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<SystemUser> criteria = builder.createQuery(SystemUser.class);
         criteria.from(SystemUser.class);
@@ -44,7 +42,6 @@ public class LoginServlet extends HttpServlet {
         
         session.getTransaction().commit();
         
-        //Flush and Close Session
         session.close();
 		
 		String username = request.getParameter("username");

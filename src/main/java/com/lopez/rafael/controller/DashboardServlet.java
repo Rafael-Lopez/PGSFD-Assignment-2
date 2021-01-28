@@ -1,4 +1,4 @@
-package com.lopez.rafael;
+package com.lopez.rafael.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +21,17 @@ public class DashboardServlet extends HttpServlet {
 		String username = request.getParameter("username");		
 		PrintWriter out = response.getWriter();
 		
+		out.println("<div style=\"text-align: center\">");
 		out.println("<h2>My Dashboard</h2>");
-		out.println("<h3>Welcome " + username + "!</h3>");
+//		out.println("<h3>Welcome " + username + "!</h3>");
+		
+		
+		out.println("<form action=\"newSubjectForm.jsp\">");         
+        out.println("<button type=\"submit\">Add New Subject</button>");
+        out.println("</form>");
+		
 		out.println("<a href='/PGFSD-Assignment-2'>Logout</a>");
+		out.println("</div>");
 	}
 
 	/**
