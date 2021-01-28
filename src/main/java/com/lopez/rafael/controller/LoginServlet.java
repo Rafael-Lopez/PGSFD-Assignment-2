@@ -4,19 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.lopez.rafael.model.SystemUser;
-import com.lopez.rafael.util.HibernateUtil;
+import com.lopez.rafael.service.SystemUserService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,23 +23,12 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-
-        session.beginTransaction();
-        
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<SystemUser> criteria = builder.createQuery(SystemUser.class);
-        criteria.from(SystemUser.class);
-        List<SystemUser> systemUserList = session.createQuery(criteria).getResultList();
-        
-        session.getTransaction().commit();
-        
-        session.close();
-		
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
+        
+        SystemUserService systemUserService = new SystemUserService();
+        List<SystemUser> systemUserList = systemUserService.getSystemUserList();
+        
         RequestDispatcher rd = null;
         
         for (SystemUser user : systemUserList) {

@@ -8,12 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.lopez.rafael.model.Subject;
-import com.lopez.rafael.util.HibernateUtil;
+import com.lopez.rafael.service.SubjectService;
 
 /**
  * Servlet implementation class NewSubjectServlet
@@ -35,16 +31,8 @@ public class RegisterSubjectServlet extends HttpServlet {
 	    	out.println("<center><span style = 'color: red'>Name and code are required for a subject!</span></center>");
 	    	rd.include(request, response);
 		} else {
-			SessionFactory factory = HibernateUtil.getSessionFactory();
-	        Session session = factory.openSession();
-	
-	        session.beginTransaction();
-	        
-	        session.save(subject);
-	        
-	        session.getTransaction().commit();
-	        
-	        session.close();
+			SubjectService subjectService = new SubjectService();
+			subjectService.save(subject);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
 			rd.forward(request, response);
