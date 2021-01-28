@@ -21,17 +21,22 @@ public class RegisterSubjectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Subject subject = (Subject) request.getAttribute("subject");
+		String name = request.getParameter("name");
+		String code = request.getParameter("code");
 		
-		if ( subject.getName() == null || subject.getName().isEmpty() ||
-			subject.getCode() == null || subject.getCode().isEmpty() ) {
+		if ( name == null || name.isEmpty() || code == null || code.isEmpty() ) {
 			PrintWriter out = response.getWriter();
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/dashboard");	
+			RequestDispatcher rd = request.getRequestDispatcher("/newSubjectForm.jsp");	
 	    	out.println("<center><span style = 'color: red'>Name and code are required for a subject!</span></center>");
 	    	rd.include(request, response);
 		} else {
 			SubjectService subjectService = new SubjectService();
+			
+			Subject subject = new Subject();
+			subject.setName(name);
+			subject.setCode(code);
+			
 			subjectService.save(subject);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
