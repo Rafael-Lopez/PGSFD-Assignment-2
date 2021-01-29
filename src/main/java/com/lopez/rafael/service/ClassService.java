@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.lopez.rafael.model.Class;
-import com.lopez.rafael.model.Subject;
 import com.lopez.rafael.util.HibernateUtil;
 
 public class ClassService {
@@ -42,5 +41,20 @@ public class ClassService {
         session.close();
         
         return classList;
+	}
+	
+	public Class findById(int id) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+
+        session.beginTransaction();
+        
+		Class loadedClass = (Class)session.get(Class.class, id);
+		
+		session.getTransaction().commit();
+        
+        session.close();
+        
+        return loadedClass;
 	}
 }

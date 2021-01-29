@@ -2,9 +2,10 @@ package com.lopez.rafael.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,8 +18,8 @@ public class Student {
 	@Column(name = "last_name")
 	private String lastName;
 	private String email;
-	@OneToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "id")
+	@ManyToOne( targetEntity=Class.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="class_id")
 	private Class assignedClass;
 	
 	public int getId() {
@@ -54,8 +55,7 @@ public class Student {
 	
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", assignedClass=" + assignedClass + "]";
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 	
 	@Override
