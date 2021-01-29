@@ -1,3 +1,5 @@
+<%@page import="com.lopez.rafael.model.Teacher"%>
+<%@page import="com.lopez.rafael.service.TeacherService"%>
 <%@page import="com.lopez.rafael.service.SubjectService"%>
 <%@page import="com.lopez.rafael.model.Subject"%>
 <%@page import="java.util.List"%>
@@ -14,9 +16,14 @@
 	<div style="text-align: center">
 		<h1>New Class</h1>
 		
-		<%! SubjectService subjectService = new SubjectService(); %>  
+		<%! SubjectService subjectService = new SubjectService(); 
+			TeacherService teacherService = new TeacherService();
+		%>  
 		<% List<Subject> subjectList = subjectService.getSubjectList();
 		   request.setAttribute("subjectList", subjectList);
+		   
+		   List<Teacher> teacherList = teacherService.getTeacherList();
+		   request.setAttribute("teacherList", teacherList);
 		%>
 		<form action="registerClass" method="post">
 			<label for="name">Name:</label>
@@ -29,6 +36,13 @@
 			<select id="subjectId" name="subjectId">
 				<c:forEach items="${subjectList}" var="subject">
 				    <option value="${subject.id}">${subject.name}</option>
+				</c:forEach>			
+			</select>
+			<br><br>
+			<label for="teacherId">Teacher:</label>
+			<select id="teacherId" name="teacherId">
+				<c:forEach items="${teacherList}" var="teacher">
+				    <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
 				</c:forEach>			
 			</select>
 			<br><br>

@@ -17,6 +17,9 @@ public class Class {
 	@OneToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
 	private Subject subject;
+	@OneToOne
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+	private Teacher teacher;
 	
 	public int getId() {
 		return id;
@@ -42,10 +45,16 @@ public class Class {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
 	
 	@Override
 	public String toString() {
-		return "Class [id=" + id + ", name=" + name + ", code=" + code + ", subject=" + subject + "]";
+		return "Class [id=" + id + ", name=" + name + ", code=" + code + ", subject=" + subject + ", teacher=" + teacher + "]";
 	}
 	
 	@Override
@@ -56,6 +65,7 @@ public class Class {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		result = prime * result + ((teacher == null) ? 0 : teacher.hashCode());
 		return result;
 	}
 	
@@ -84,6 +94,11 @@ public class Class {
 			if (other.subject != null)
 				return false;
 		} else if (!subject.equals(other.subject))
+			return false;
+		if (teacher == null) {
+			if (other.teacher != null)
+				return false;
+		} else if (!teacher.equals(other.teacher))
 			return false;
 		return true;
 	}
