@@ -14,5 +14,6 @@
   		<mapping class="com.lopez.rafael.model.Subject"/>
   		<mapping class="com.lopez.rafael.model.Class"/>
   		<mapping class="com.lopez.rafael.model.Teacher"/>
+  		<mapping class="com.lopez.rafael.model.Student"/>
     </session-factory>
 </hibernate-configuration>

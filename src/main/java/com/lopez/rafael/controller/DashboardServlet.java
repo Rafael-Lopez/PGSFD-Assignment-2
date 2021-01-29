@@ -37,6 +37,10 @@ public class DashboardServlet extends HttpServlet {
         out.println("<form action=\"newClassForm.jsp\">");         
         out.println("<button type=\"submit\">Add New Class</button>");
         out.println("</form>");
+        
+        out.println("<form action=\"newStudentForm.jsp\">");         
+        out.println("<button type=\"submit\">Add New Student</button>");
+        out.println("</form>");
 		
 		out.println("<a href='/PGFSD-Assignment-2'>Logout</a>");
 		out.println("</div>");

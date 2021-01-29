@@ -54,4 +54,14 @@
     <servlet-name>RegisterTeacherServlet</servlet-name>
     <url-pattern>/registerTeacher</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegisterStudentServlet</display-name>
+    <servlet-name>RegisterStudentServlet</servlet-name>
+    <servlet-class>com.lopez.rafael.controller.RegisterStudentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterStudentServlet</servlet-name>
+    <url-pattern>/registerStudent</url-pattern>
+  </servlet-mapping>
 </web-app>
