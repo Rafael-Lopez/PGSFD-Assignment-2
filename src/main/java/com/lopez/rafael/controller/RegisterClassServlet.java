@@ -39,7 +39,7 @@ public class RegisterClassServlet extends HttpServlet {
 			ClassService classService = new ClassService();
 			classService.save(newClass);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
+			RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
 			rd.forward(request, response);
 		}
 	}

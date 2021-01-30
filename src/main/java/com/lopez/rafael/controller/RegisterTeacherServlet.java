@@ -42,7 +42,7 @@ public class RegisterTeacherServlet extends HttpServlet {
 			
 			teacherService.save(teacher);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
+			RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
 			rd.forward(request, response);
 		}
 	}

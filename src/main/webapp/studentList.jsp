@@ -47,7 +47,7 @@
 			</c:forEach>
 		</tbody>
 		</table>
-		<a href="/PGFSD-Assignment-2/dashboard" class="previous">&laquo; Back to Dashboard</a>
+		<a href="/PGFSD-Assignment-2/dashboard.jsp" class="previous">&laquo; Back to Dashboard</a>
 	</div>
 </body>
 </html>

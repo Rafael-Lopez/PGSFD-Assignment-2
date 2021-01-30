@@ -16,16 +16,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>DashboardServlet</display-name>
-    <servlet-name>DashboardServlet</servlet-name>
-    <servlet-class>com.lopez.rafael.controller.DashboardServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DashboardServlet</servlet-name>
-    <url-pattern>/dashboard</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>RegisterSubjectServlet</display-name>
     <servlet-name>RegisterSubjectServlet</servlet-name>
     <servlet-class>com.lopez.rafael.controller.RegisterSubjectServlet</servlet-class>

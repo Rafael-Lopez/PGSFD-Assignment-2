@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         for (SystemUser user : systemUserList) {
         	if (username != null && username.contentEquals(user.getUsername()) && 
         		password != null && password.contentEquals(user.getPassword())) {
-            	rd = request.getRequestDispatcher("dashboard");
+            	rd = request.getRequestDispatcher("dashboard.jsp");
             	rd.forward(request, response);
             }
         }

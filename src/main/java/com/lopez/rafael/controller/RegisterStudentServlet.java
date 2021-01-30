@@ -48,7 +48,7 @@ public class RegisterStudentServlet extends HttpServlet {
 			StudentService studentService = new StudentService();
 			studentService.save(student);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
+			RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
 			rd.forward(request, response);
 		}	
 	}

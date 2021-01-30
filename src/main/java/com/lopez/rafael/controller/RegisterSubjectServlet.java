@@ -51,7 +51,7 @@ public class RegisterSubjectServlet extends HttpServlet {
 			
 			subjectService.save(subject);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("dashboard");
+			RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
 			rd.forward(request, response);
 		}
 	}
