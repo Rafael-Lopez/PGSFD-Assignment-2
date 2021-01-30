@@ -18,7 +18,7 @@ public class Student {
 	@Column(name = "last_name")
 	private String lastName;
 	private String email;
-	@ManyToOne( targetEntity=Class.class, fetch = FetchType.LAZY)
+	@ManyToOne( targetEntity=Class.class, fetch = FetchType.EAGER)
 	@JoinColumn(name="class_id")
 	private Class assignedClass;
 	
