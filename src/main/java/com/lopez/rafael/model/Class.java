@@ -1,14 +1,11 @@
 package com.lopez.rafael.model;
 
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,15 +15,10 @@ public class Class {
 	private int id;
 	private String name;
 	private String code;
-	//By default no operations are cascaded.
-	@OneToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
-	private Subject subject;
-	@OneToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-	private Teacher teacher;
-	@OneToMany(targetEntity=Student.class, cascade = CascadeType.ALL , fetch = FetchType.EAGER, mappedBy = "assignedClass")
-	private List<Student> students;
+	@OneToMany(targetEntity=Subject.class, fetch = FetchType.LAZY, mappedBy = "assignedClass")
+	private Set<Subject> subjects;
+	@OneToMany(targetEntity=Student.class, fetch = FetchType.LAZY, mappedBy = "assignedClass")
+	private Set<Student> students;
 	
 	public int getId() {
 		return id;
@@ -46,29 +38,22 @@ public class Class {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Subject getSubject() {
-		return subject;
+	public Set<Subject> getSubjects() {
+		return subjects;
 	}
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
 	}
-	public Teacher getTeacher() {
-		return teacher;
-	}
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-	public List<Student> getStudents() {
+	public Set<Student> getStudents() {
 		return students;
 	}
-	public void setStudents(List<Student> students) {
+	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 	
 	@Override
 	public String toString() {
-		return "Class [id=" + id + ", name=" + name + ", code=" + code + ", subject=" + subject + 
-				", teacher=" + teacher + ", students=" + students + "]";
+		return "Class [id=" + id + ", name=" + name + ", code=" + code + ", subjects=" + subjects + ", students=" + students + "]";
 	}
 	
 	@Override
@@ -78,8 +63,6 @@ public class Class {
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
-		result = prime * result + ((teacher == null) ? 0 : teacher.hashCode());
 		return result;
 	}
 	
@@ -103,16 +86,6 @@ public class Class {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (subject == null) {
-			if (other.subject != null)
-				return false;
-		} else if (!subject.equals(other.subject))
-			return false;
-		if (teacher == null) {
-			if (other.teacher != null)
-				return false;
-		} else if (!teacher.equals(other.teacher))
 			return false;
 		return true;
 	}

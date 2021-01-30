@@ -1,5 +1,6 @@
+<%@page import="com.lopez.rafael.model.Subject"%>
+<%@page import="java.util.Set"%>
 <%@page import="com.lopez.rafael.model.Student"%>
-<%@page import="java.util.List"%>
 <%@page import="com.lopez.rafael.model.Class"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -8,8 +9,6 @@
 <html>
 <head>
 <style type="text/css">
-	.subject {text-align:left;float:left;margin-left:150px;}
-	.teacher {text-align:right;float:right;margin-right:150px;}
 	.tg  {border-collapse:collapse;border-color:#aaa;border-spacing:0;margin-left: auto;margin-right: auto;}
 	.tg td{background-color:#fff;border-color:#aaa;border-style:solid;border-width:1px;color:#333;
 	  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
@@ -24,14 +23,32 @@
 <body style="padding: 10px">
 	<div style="text-align: center">
 		<% Class item = (Class) request.getAttribute("class");%>
-		<% List<Student> students = item.getStudents();
+		<% Set<Subject> subjects = item.getSubjects();
+			request.setAttribute("subjects", subjects);%>
+		<% Set<Student> students = item.getStudents();
 			request.setAttribute("students", students);%>
 		<h1>Class: <%=item.getName()%></h1>
-		<h2 class="subject">Subject: <%=item.getSubject().getName()%></h2>
-		<h2 class="teacher">Teacher: <%=item.getTeacher().getFirstName() + " " + item.getTeacher().getLastName()%></h2>
 		<hr style="clear:both;"/>
-		<h2>Students Enrolled</h2>
 		
+		<h2>Subjects & Teachers</h2>
+		<table class="tg">
+		<thead>
+		  <tr>
+		    <th class=tg-general>Subject</th>
+		    <th class="tg-general">Teacher</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${subjects}" var="subject">
+			  	<tr>
+					<td class="tg-general">${subject.name}</td>
+				    <td class="tg-general">${subject.teacher.firstName} ${subject.teacher.lastName}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+		
+		<h2>Students Enrolled</h2>
 		<table class="tg">
 		<thead>
 		  <tr>

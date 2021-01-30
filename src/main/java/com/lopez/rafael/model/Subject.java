@@ -1,7 +1,11 @@
 package com.lopez.rafael.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +15,12 @@ public class Subject {
 	private int id;
 	private String name;
 	private String code;
+	@OneToOne
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+	private Teacher teacher;
+	@ManyToOne( targetEntity=Class.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="class_id")
+	private Class assignedClass;
 	
 	public int getId() {
 		return id;
@@ -30,10 +40,22 @@ public class Subject {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	public Class getAssignedClass() {
+		return assignedClass;
+	}
+	public void setAssignedClass(Class assignedClass) {
+		this.assignedClass = assignedClass;
+	}
 	
 	@Override
 	public String toString() {
-		return "Subject [id=" + id + ", name=" + name + ", code=" + code + "]";
+		return "Subject [id=" + id + ", name=" + name + ", code=" + code + ", teacher=" + teacher + "]";
 	}
 	
 	@Override
@@ -43,9 +65,9 @@ public class Subject {
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((teacher == null) ? 0 : teacher.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,6 +88,11 @@ public class Subject {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (teacher == null) {
+			if (other.teacher != null)
+				return false;
+		} else if (!teacher.equals(other.teacher))
 			return false;
 		return true;
 	}	

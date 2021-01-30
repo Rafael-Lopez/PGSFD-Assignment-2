@@ -62,13 +62,13 @@ public class Student {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assignedClass == null) ? 0 : assignedClass.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,11 +78,6 @@ public class Student {
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		if (assignedClass == null) {
-			if (other.assignedClass != null)
-				return false;
-		} else if (!assignedClass.equals(other.assignedClass))
-			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;

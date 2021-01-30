@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.lopez.rafael.model.Class;
 import com.lopez.rafael.model.Subject;
+import com.lopez.rafael.model.Teacher;
 import com.lopez.rafael.service.SubjectService;
 
 /**
@@ -23,19 +25,29 @@ public class RegisterSubjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String code = request.getParameter("code");
+		int classId = Integer.valueOf(request.getParameter("classId"));
+		int teacherId = Integer.valueOf(request.getParameter("teacherId"));
 		
 		if ( name == null || name.isEmpty() || code == null || code.isEmpty() ) {
 			PrintWriter out = response.getWriter();
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/newSubjectForm.jsp");	
-	    	out.println("<center><span style = 'color: red'>Name and code are required for a subject!</span></center>");
+	    	out.println("<center><span style = 'color: red'>All fields are required for a subject!</span></center>");
 	    	rd.include(request, response);
 		} else {
 			SubjectService subjectService = new SubjectService();
 			
+			Class tempClass = new Class();
+			tempClass.setId(classId);
+			
+			Teacher teacher = new Teacher();
+			teacher.setId(teacherId);
+			
 			Subject subject = new Subject();
 			subject.setName(name);
 			subject.setCode(code);
+			subject.setTeacher(teacher);
+			subject.setAssignedClass(tempClass);
 			
 			subjectService.save(subject);
 			
